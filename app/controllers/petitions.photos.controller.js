@@ -3,6 +3,9 @@ const users = require('../models/users.model');
 const petitions = require('../models/petitions.model');
 const fs = require('mz/fs');
 var mime = require('mime-types')
+const upload = require('../services/fileupload')
+
+// const singleUpload = upload.single('image')
 
 const photoDirectory = './storage/photos/';
 const defaultPhotoDirectory = './storage/default/';
@@ -35,6 +38,21 @@ exports.getPetitionPhoto =  async function (req, res) {
         res.status(500).send(`ERROR getting users ${err}`);
     }
 };
+exports.addPetitionPhotoAWS = async function(req, res) {
+  console.log("Adding aws photo")
+    const multer = upload(`petition${req.params.id}`)
+    const singleUpload = multer.single('image')
+    singleUpload(req, res, function(err){
+
+        if (err){
+           res.status(400).send()
+            return
+        }
+
+        console.log(req)
+       return res.json({'imageUrl': req.file.location})
+    })
+}
 
 exports.replacePetitionPhoto = async function(req, res){
 

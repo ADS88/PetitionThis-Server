@@ -7,6 +7,7 @@
     "debug": "node --trace-warnings %NODE_DEBUG_OPTION% server.js"
   },
   "dependencies": {
+    "aws-sdk": "^2.829.0",
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "busboy": "^0.3.1",
@@ -16,6 +17,8 @@
     "humps": "^2.0.1",
     "jsonwebtoken": "^8.5.1",
     "mime-types": "^2.1.26",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "mysql2": "^2.1.0",
     "mz": "^2.7.0"
   },
@@ -23,6 +26,6 @@
     "nodemon": "^2.0.2"
   },
   "engines": {
-  "node": "12.14.0"
+    "node": "12.14.0"
   }
 }
