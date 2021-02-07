@@ -5,8 +5,6 @@ const fs = require('mz/fs');
 var mime = require('mime-types')
 const upload = require('../services/fileupload')
 
-// const singleUpload = upload.single('image')
-
 const photoDirectory = './storage/photos/';
 const defaultPhotoDirectory = './storage/default/';
 
@@ -49,7 +47,6 @@ exports.addPetitionPhotoAWS = async function(req, res) {
             return
         }
 
-        console.log(req)
        return res.json({'imageUrl': req.file.location})
     })
 }

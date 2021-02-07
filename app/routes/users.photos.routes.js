@@ -6,4 +6,7 @@ module.exports = function (app) {
         .get(userPhotosController.getUserPhoto)
         .put(userPhotosController.editUserPhoto)
         .delete(userPhotosController.deleteUserPhoto)
+
+    app.route(app.rootUrl + '/users/:id/awsphoto')
+      .put(userPhotosController.addUserPhotoAWS)
 };

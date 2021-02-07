@@ -29,7 +29,18 @@ const upload = (name) => multer({
     },
     //name of file
     key: function (req, file, cb) {
-      cb(null, name + ".png")
+      let mimetype = file.mimetype
+      var extension = ""
+      if(mimetype === "image/jpeg"){
+        extension = ".jpg"
+      }
+      else if(mimetype === "image/png"){
+        extension = ".png"
+      } else if(mimetype ==="image/gif") {
+        extension = ".gif"
+      }
+      console.log(mimetype)
+      cb(null, `${name}${extension}`)
     }
   })
 })

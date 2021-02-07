@@ -3,6 +3,7 @@ var fs = require('mz/fs');
 var path = require('path');
 const users = require('../models/users.model');
 var mime = require('mime-types')
+const upload = require('../services/fileupload')
 const photoDirectory = './storage/photos/';
 
 
@@ -31,6 +32,18 @@ exports.getUserPhoto =  async function (req, res) {
         res.status(500).send(`ERROR getting user photo ${err}`);
     }
 };
+
+exports.addUserPhotoAWS = async function(req, res) {
+    const multer = upload(`user${req.params.id}`)
+    const singleUpload = multer.single('image')
+    singleUpload(req, res, function(err){
+        if (err){
+            res.status(400).send()
+            return
+        }
+        res.status(201).send()
+    })
+}
 
 exports.editUserPhoto = async function(req, res){
     //TODO Implement this method correctly
