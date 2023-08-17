@@ -1,0 +1,7 @@
+services:
+  backend:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - 4941:4941

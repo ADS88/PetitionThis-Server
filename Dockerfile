@@ -1,0 +1,12 @@
+FROM node:20-alpine
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+EXPOSE 4941
+ENV MYSQL_DATABASE=
+ENV MYSQL_PORT=
+ENV MYSQL_HOST=
+ENV MYSQL_USER=
+ENV MYSQL_PASSWORD=
+CMD [ "npm", "run", "dev"]
