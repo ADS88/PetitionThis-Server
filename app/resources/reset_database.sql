@@ -1,6 +1,16 @@
+# MySQL scripts for dropping existing tables and recreating the database table structure
+
+
+### DROP EVERYTHING ###
+# Tables/views must be dropped in reverse order due to referential constraints (foreign keys).
+DROP TABLE IF EXISTS Signature;
+DROP TABLE IF EXISTS Petition;
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Category;
+
 ### TABLES ###
 # Tables must be created in a particular order due to referential constraints i.e. foreign keys.
-CREATE TABLE IF NOT EXISTS User
+CREATE TABLE User
 (
     user_id        INT          NOT NULL AUTO_INCREMENT,
     name           VARCHAR(128) NOT NULL,
@@ -15,14 +25,14 @@ CREATE TABLE IF NOT EXISTS User
     UNIQUE (auth_token)
 );
 
-CREATE TABLE IF NOT EXISTS Category
+CREATE TABLE Category
 (
     category_id INT         NOT NULL AUTO_INCREMENT,
     name        VARCHAR(64) NOT NULL,
     PRIMARY KEY (category_id)
 );
 
-CREATE TABLE IF NOT EXISTS Petition
+CREATE TABLE Petition
 (
     petition_id    INT           NOT NULL AUTO_INCREMENT,
     title          VARCHAR(256)  NOT NULL,
@@ -37,7 +47,7 @@ CREATE TABLE IF NOT EXISTS Petition
     FOREIGN KEY (category_id) REFERENCES Category (category_id)
 );
 
-CREATE TABLE IF NOT EXISTS Signature
+CREATE TABLE Signature
 (
     signatory_id INT      NOT NULL,
     petition_id  INT      NOT NULL,
@@ -47,10 +57,4 @@ CREATE TABLE IF NOT EXISTS Signature
     FOREIGN KEY (petition_id) REFERENCES Petition (petition_id) ON DELETE CASCADE
 );
 
-INSERT INTO 
-    Category(name) 
-VALUES 
-    ('Human rights'), 
-    ('Environment'), 
-    ('Politics'), 
-    ('Other');
+INSERT INTO petition_db.Category (name) VALUES ('Human rights'), ('Environment'), ('Politics'), ('Other');

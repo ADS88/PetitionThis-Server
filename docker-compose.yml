@@ -1,7 +1,28 @@
+version: '3.8'
+
 services:
-  backend:
-    build: .
+  mysql:
+    # Remove platform if not building for M1 mac
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: mysql.Dockerfile
+    command: --default-authentication-plugin=mysql_native_password
     env_file:
-      - .env
+      - ./env/mysql.env
+  backend:
+    build: 
+      context: .
+      dockerfile: backend.Dockerfile
+    env_file:
+      - ./env/backend.env
     ports:
       - 4941:4941
+    depends_on:
+      - mysql
+    volumes:
+      - mysql_data:/var/lib/mysql
+volumes:
+  mysql_data:
+
+
